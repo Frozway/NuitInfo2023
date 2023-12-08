@@ -1,6 +1,11 @@
 // 1. Initialisation des Variables Globales
-var game, player, cursors, islands;
+var game, player, cursors, islands, themeSwitch;
 var isUpdating = true;
+
+var lastThemeChangeTime = 0;
+var themeChangeDelay = 3000; // Délai en millisecondes, par exemple 1000 ms pour 1 seconde
+
+var currentTheme = 'normal';
 
 var speed = 0;
 var maxSpeed = 5;
@@ -29,15 +34,25 @@ game = new Phaser.Game(config);
 function preload() {
     // Le premier argument est l'identifiant de l'image, et le second est le chemin de l'image
     this.load.image('playerImage', 'assets/boatvf.png');
+    this.load.image('badPlayerImage', 'assets/boatvfquipue.png');
     this.load.image('seaImage', 'assets/sea.png');
+    this.load.image('badSeaImage', 'assets/seaquipue.png');
     this.load.image('island1', 'assets/ile1.png');
     this.load.image('island2', 'assets/ile2.png');
     this.load.image('island3', 'assets/ile3.png');
     this.load.image('island4', 'assets/ile4.png');
+    this.load.image('badisland1', 'assets/ile1quipue.png');
+    this.load.image('badisland2', 'assets/ile2quipue.png');
+    this.load.image('badisland3', 'assets/ile3quipue.png');
+    this.load.image('badisland4', 'assets/ile4quipue.png');
+    this.load.image('badisland5', 'assets/ile5quipue.png');
+    this.load.image('dophin', 'assets/dophin.png');
+    this.load.image('badBaril', 'assets/barilquipue.png');
 }
 
-
 // 4. Fonction `create`
+var seaSprites = []; // Tableau pour stocker les sprites de la mer
+
 function create() {
     this.cameras.main.setBackgroundColor('#0000ff');
     this.physics.world.setBounds(0, 0, 2000, 2000);
@@ -49,18 +64,35 @@ function create() {
     for (let x = 0; x < 2000; x += caseSize) {
         for (let y = 0; y < 2000; y += caseSize) {
             const seaSprite = this.add.sprite(x, y, 'seaImage').setOrigin(0, 0);
-
-            // Ajuster l'échelle du sprite
-            // Remplacer 'originalWidth' et 'originalHeight' par les dimensions réelles de l'image 'sea.png'
             seaSprite.setScale(caseSize / seaSprite.width, caseSize / seaSprite.height);
+            seaSprites.push(seaSprite); // Ajouter le sprite au tableau
         }
     }
 
-    setupPlayer.call(this);
+    // Créer le baril de la mort
+    themeSwitch = this.physics.add.sprite(750, 750, 'badBaril').setOrigin(0.5, 0.5);
+    themeSwitch.setScale(50 / themeSwitch.width, 50 / themeSwitch.height);
+
+    
     setupIslands.call(this);
+    setupPlayer.call(this);
     setupCamera.call(this);
     setupControls.call(this);
+
+    this.physics.add.collider(player, themeSwitch, function() {
+        var currentTime = Date.now();
+    
+        if (currentTime - lastThemeChangeTime > themeChangeDelay) {
+            switchTheme();
+            lastThemeChangeTime = currentTime;
+        }
+    });
+
+    this.physics.add.collider(player, islands, function(player, island) {
+        handleIslandCollision(island);
+    });
 }
+
 
 // 5. Fonctions Auxiliaires pour `create`
 function setupPlayer() {
@@ -71,17 +103,97 @@ function setupPlayer() {
     player.setScale(100 / player.width, 40 / player.height); // Ajustez ces valeurs selon les dimensions souhaitées
 }
 
+// function setupIslands() {
+//     islands = [];
+//     var islandPositions = [[1000, 500], [500, 750], [1500, 750], [1250, 1250], [750, 1250]];
+//     var islandImages = ['island1', 'island2', 'island3', 'island4', 'island3'];
+
+//     for (let i = 0; i < islandPositions.length; i++) {
+//         let pos = islandPositions[i];
+//         let islandImage = islandImages[i];
+//         let island = this.add.sprite(pos[0], pos[1], islandImage).setOrigin(0.5, 0.5);
+//         islands.push(island);
+//     }
+// }
 function setupIslands() {
-    islands = [];
+    islands = this.physics.add.staticGroup();
     var islandPositions = [[1000, 500], [500, 750], [1500, 750], [1250, 1250], [750, 1250]];
     var islandImages = ['island1', 'island2', 'island3', 'island4', 'island3'];
 
     for (let i = 0; i < islandPositions.length; i++) {
         let pos = islandPositions[i];
         let islandImage = islandImages[i];
-        let island = this.add.sprite(pos[0], pos[1], islandImage).setOrigin(0.5, 0.5);
-        islands.push(island);
+        let island = islands.create(pos[0], pos[1], islandImage).setOrigin(0.5, 0.5);
     }
+}
+
+
+function switchPlayerTexture() {
+    let newTexture = (currentTheme === "normal") ? 'playerImage' : 'badPlayerImage';
+    player.setTexture(newTexture);
+
+    // Ajuster l'échelle du sprite pour le thème "bad"
+    if (currentTheme === "bad") {
+        // Supposons que vous voulez agrandir le sprite de 50% pour le thème "bad"
+        player.setScale(1.5 * (100 / player.width), 1.5 * (40 / player.height));
+    } else {
+        // Remettre à l'échelle normale pour le thème "normal"
+        player.setScale(100 / player.width, 40 / player.height);
+    }
+}
+
+
+// function switchIslandTextures() {
+//     let newImages;
+
+//     if (currentTheme === 'normal') {
+//         newImages = ['island1', 'island2', 'island3', 'island4', 'island3'];
+//     } else {
+//         newImages = ['badisland1', 'badisland2', 'badisland3', 'badisland4', 'badisland5'];
+//     }
+
+//     islands.forEach((island, index) => {
+//         island.setTexture(newImages[index]);
+//     });
+// }
+function switchIslandTextures() {
+    let newImages;
+
+    if (currentTheme === 'normal') {
+        newImages = ['island1', 'island2', 'island3', 'island4', 'island3'];
+    } else {
+        newImages = ['badisland1', 'badisland2', 'badisland3', 'badisland4', 'badisland5'];
+    }
+
+    islands.getChildren().forEach((island, index) => {
+        island.setTexture(newImages[index]);
+    });
+}
+
+function switchSeaTextures() {
+    const newTexture = (currentTheme === "normal") ? 'seaImage' : 'badSeaImage';
+
+    seaSprites.forEach(sprite => {
+        sprite.setTexture(newTexture);
+    });
+}
+
+function switchBarilTexture() {
+    currentTheme === 'normal' ? themeSwitch.setTexture('badBaril') : themeSwitch.setTexture('dophin');
+    themeSwitch.setScale(50 / themeSwitch.width, 50 / themeSwitch.height);
+}
+
+function switchTheme() {
+    if(currentTheme === 'normal') {
+        currentTheme = 'bad';
+    }
+    else {
+        currentTheme = 'normal';
+    }
+    switchIslandTextures();
+    switchSeaTextures();
+    switchPlayerTexture();
+    switchBarilTexture();
 }
 
 function setupCamera() {
@@ -106,10 +218,16 @@ function update() {
     }
 
     handlePlayerMovement.call(this);
-    handleCollision.call(this);
+    // handleCollision.call(this);
 }
 
 // 7. Fonctions Auxiliaires pour `update`
+function handleIslandCollision(island){
+    speed = 0;
+    isUpdating = false;
+    let islandIndex = islands.getChildren().indexOf(island);
+    showIslandPopup(islandIndex);
+}
 
 function handleCollision() {
     let isNearIsland = false;
@@ -137,6 +255,7 @@ function handleCollision() {
             speed = Math.max(speed - deceleration, 0);
         }
     }
+
 }
 
 function adjustPlayerPosition() {
