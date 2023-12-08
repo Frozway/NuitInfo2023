@@ -20,7 +20,7 @@ body {
   flex-direction: column;
   width: 40%;
   height: 100%;
-  background-color: rgba(79, 144, 86, 0.9);
+  background-color: rgba(135, 206, 235, 0.6);
   position: relative;
 }
 
@@ -49,7 +49,7 @@ body {
   width: 75%;
   text-align: justify;
   color: #fff;
-  margin-top: 60%;
+  margin-top: 55%;
   margin-left: 10%;
   font-size: 1.5em;
 }
