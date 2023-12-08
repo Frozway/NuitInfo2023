@@ -115,14 +115,14 @@ nav {
   transition: right 0.5s ease;
 }
 .sidenav h2 {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   margin-bottom: 10px;
   font-weight: 800;
   letter-spacing: 2px;
   color: #FFF;
 }
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px;
   text-decoration: none;
   color: #FFF;
   display: block;
@@ -130,6 +130,7 @@ nav {
 }
 .sidenav a:hover {
   color: lightskyblue;
+  transform: scale(1.1);
 }
 .sidenav ul {
   list-style-type: none;
