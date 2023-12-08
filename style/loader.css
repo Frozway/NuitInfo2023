@@ -16,3 +16,9 @@
     opacity: 0;
     pointer-events: none; /* Désactive les événements sur le fond masqué */
 }
+
+.loaderTitle
+{
+    font-size: 50px;
+    color: #fff;
+}
