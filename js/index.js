@@ -30,10 +30,11 @@ function preload() {
     // Le premier argument est l'identifiant de l'image, et le second est le chemin de l'image
     this.load.image('playerImage', 'assets/boatvf.png');
     this.load.image('seaImage', 'assets/sea.png');
-    this.load.image('island1', 'assets/ile1.png');
-    this.load.image('island2', 'assets/ile2.png');
-    this.load.image('island3', 'assets/ile3.png');
-    this.load.image('island4', 'assets/ile4.png');
+    this.load.image('island1', 'assets/axe1.png');
+    this.load.image('island2', 'assets/axe2.png');
+    this.load.image('island3', 'assets/axe3.png');
+    this.load.image('island4', 'assets/axe4.png');
+    this.load.image('island5', 'assets/axe5.png');
 }
 
 
@@ -74,7 +75,7 @@ function setupPlayer() {
 function setupIslands() {
     islands = [];
     var islandPositions = [[1000, 500], [500, 750], [1500, 750], [1250, 1250], [750, 1250]];
-    var islandImages = ['island1', 'island2', 'island3', 'island4', 'island3'];
+    var islandImages = ['island1', 'island2', 'island3', 'island4', 'island5'];
 
     for (let i = 0; i < islandPositions.length; i++) {
         let pos = islandPositions[i];
@@ -82,6 +83,48 @@ function setupIslands() {
         let island = this.add.sprite(pos[0], pos[1], islandImage).setOrigin(0.5, 0.5);
         islands.push(island);
     }
+}
+
+// Fonction pour récupérer les positions des îles sur la fenêtre en temps réel et pas en dur
+function getIslandsPositions() {
+    return islands.map(island => ({
+        x: island.x,
+        y: island.y
+    }));
+}
+
+// Fonction pour placer des liens sur les îles avec des numéros cliquables vers des URL
+function placeLinksOnIslands(playerX, playerY) {
+    // Supprimer les anciens liens pour éviter les doublons
+    var existingLinks = document.querySelectorAll('.island-link');
+    existingLinks.forEach(link => link.remove());
+
+    // Créer des liens pour chaque île
+    getIslandsPositions(playerX, playerY).forEach((position, index) => {
+        // Créer le lien
+        var link = document.createElement('a');
+        link.className = 'island-link';
+        link.textContent = 'Ile ' + (index + 1); // Marquer le lien avec le numéro de l'île
+
+            // Positionner le lien
+            link.style.position = 'absolute';
+            link.style.left = position.x + 'px';
+            link.style.top = position.y + 'px';
+        
+
+        // Définir l'URL de redirection pour chaque île
+        var islandURLs = [
+            'https://example.com/ile1',
+            'https://example.com/ile2',
+            'https://example.com/ile3',
+            'https://example.com/ile4',
+            'https://example.com/ile5'
+        ];  
+        link.href = islandURLs[index];
+
+        // Ajouter le lien au corps du document
+        document.body.appendChild(link);
+    });
 }
 
 function setupCamera() {
@@ -107,6 +150,9 @@ function update() {
 
     handlePlayerMovement.call(this);
     handleCollision.call(this);
+
+    // Mettre à jour les liens sur les îles
+    placeLinksOnIslands();
 }
 
 // 7. Fonctions Auxiliaires pour `update`
