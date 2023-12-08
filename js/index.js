@@ -103,18 +103,6 @@ function setupPlayer() {
     player.setScale(100 / player.width, 40 / player.height); // Ajustez ces valeurs selon les dimensions souhaitées
 }
 
-// function setupIslands() {
-//     islands = [];
-//     var islandPositions = [[1000, 500], [500, 750], [1500, 750], [1250, 1250], [750, 1250]];
-//     var islandImages = ['island1', 'island2', 'island3', 'island4', 'island3'];
-
-//     for (let i = 0; i < islandPositions.length; i++) {
-//         let pos = islandPositions[i];
-//         let islandImage = islandImages[i];
-//         let island = this.add.sprite(pos[0], pos[1], islandImage).setOrigin(0.5, 0.5);
-//         islands.push(island);
-//     }
-// }
 function setupIslands() {
     islands = this.physics.add.staticGroup();
     var islandPositions = [[1000, 500], [500, 750], [1500, 750], [1250, 1250], [750, 1250]];
@@ -143,19 +131,6 @@ function switchPlayerTexture() {
 }
 
 
-// function switchIslandTextures() {
-//     let newImages;
-
-//     if (currentTheme === 'normal') {
-//         newImages = ['island1', 'island2', 'island3', 'island4', 'island3'];
-//     } else {
-//         newImages = ['badisland1', 'badisland2', 'badisland3', 'badisland4', 'badisland5'];
-//     }
-
-//     islands.forEach((island, index) => {
-//         island.setTexture(newImages[index]);
-//     });
-// }
 function switchIslandTextures() {
     let newImages;
 
@@ -218,7 +193,6 @@ function update() {
     }
 
     handlePlayerMovement.call(this);
-    // handleCollision.call(this);
 }
 
 // 7. Fonctions Auxiliaires pour `update`
@@ -229,34 +203,6 @@ function handleIslandCollision(island){
     showIslandPopup(islandIndex);
 }
 
-function handleCollision() {
-    let isNearIsland = false;
-
-    islands.forEach((island, index) => {
-        let distance = Phaser.Math.Distance.Between(player.x, player.y, island.x, island.y);
-        if (distance < 50 + 100) { // Collision directe
-            console.log("Collision avec une île !");
-            isUpdating = false;
-            console.log(index)
-            isNearIsland = true;
-            return; // Sortir de la boucle forEach
-        } else if (distance < 50 + 150) { // Zone tampon
-            showIslandPopup(index); // Passer l'index de l'île
-            isNearIsland = true;
-            speed = Math.max(speed - deceleration, 1); // Ralentir le bateau
-        }
-    });
-
-    if (!isNearIsland) {
-        // Gestion de l'avancement
-        if (cursors.up.isDown) {
-            speed = Math.min(speed + acceleration, maxSpeed);
-        } else {
-            speed = Math.max(speed - deceleration, 0);
-        }
-    }
-
-}
 
 function adjustPlayerPosition() {
     player.x = 1000;
