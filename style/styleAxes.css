@@ -1,0 +1,83 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.upper-container {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../images/axeBackground.jpg");
+}
+
+.left-upper-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 100%;
+  background-color: rgba(79, 144, 86, 0.9);
+  position: relative;
+}
+
+.img-logo {
+  width: 10%;
+  margin: 1%;
+}
+
+.img-title {
+  width: 65%;
+  top: 35%;
+  left: 15%;
+  position: absolute;
+  z-index: 2;
+}
+
+.img-01 {
+  width: 40%;
+  top: 20%;
+  left: 10%;
+  position: absolute;
+  z-index: 1;
+}
+
+.upper-text {
+  width: 75%;
+  text-align: justify;
+  color: #fff;
+  margin-top: 60%;
+  margin-left: 10%;
+  font-size: 1.5em;
+}
+
+.lower-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0% 2.5%;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  text-align: justify;
+  height: 100%;
+  margin: 5% 0%;
+  border-radius: 35px;
+  background-color: #eee;
+  font-size: 1.2em;
+}
