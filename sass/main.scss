@@ -1,0 +1,16 @@
+@import "reset.scss";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins';
+    overflow: hidden;
+}
+
+@import "navbar.scss";
+
+@import "popup.scss";

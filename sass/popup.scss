@@ -1,0 +1,68 @@
+#overlay{
+    backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+ 
+.popup{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 1000;
+
+    h2{
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    p{
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+
+    .popup-buttons{
+        display: flex;
+        width: 100%;
+    }
+
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: #fff;
+        background-color: lightskyblue ;
+        border: 1.5px solid transparent;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: 0.1s;
+        margin-right: 20px;
+
+        svg{
+            margin-left: 10px;
+        }
+
+        &:hover{
+            background-color: transparent;
+            border: 1.5px solid lightskyblue;
+            color: lightskyblue;
+        }
+    }
+
+}

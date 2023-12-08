@@ -1,42 +1,124 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Mon jeu Phaser</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#" id="toggleBtn">
+          <span class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </a>
 
-    <div id="overlay" style="display:none;">
-        <div id="popup-island1" class="popup" style="display:none;">
-            Contenu pour l'île 1
-            <button onclick="hideIslandPopup('popup-island1')" class="cancel-button">Annuler</button>
+        <div id="mySidenav" class="sidenav">
+          <ul>
+            <li><a href="#">Navigation</a></li>
+            <li><a href="#">Axe 1</a></li>
+            <li><a href="#">Axe 2</a></li>
+            <li><a href="#">Axe 3</a></li>
+            <li><a href="#">Axe 4</a></li>
+            <li><a href="#">Notre équipe</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <section class="container">
+      <div id="overlay" style="display: none">
+        <div id="popup-island1" class="popup" style="display: none">
+          <h2>Embarque pour un voyage climatique !</h2>
+          <p class="citation">
+            Découvre l'univers fascinant du changement climatique en un clic ! 🚀 <br>
+            Explore les faits marquants du GIEC et plonge dans les différences cruciales entre le changement climatique et les enjeux environnementaux généraux. Prêt pour une aventure éducative ?
+          </p>
+          <div class="popup-buttons">
+            <button
+              onclick="hideIslandPopup('popup-island1')"
+              class="cancel-button"
+            >
+              Annuler
+            </button>
+            <button onclick="window.location.href='#'"">Découvrir</button>
+          </div>
         </div>
 
-        <div id="popup-island2" class="popup" style="display:none;">
-            Contenu pour l'île 2
-            <button onclick="hideIslandPopup('popup-island2')" class="cancel-button">Annuler</button>
+        <div id="popup-island2" class="popup" style="display: none">
+          <h2>Démystifions le Climat !</h2>
+          <p class="citation">
+            Envie de dénouer le vrai du faux sur le changement climatique ? <br>
+            Clique ici pour démarrer l'aventure et découvrir des faits scientifiques passionnants !
+          </p>
+          <div class="popup-buttons">
+            <button
+              onclick="hideIslandPopup('popup-island2')"
+              class="cancel-button"
+            >
+              Annuler
+            </button>
+            <button onclick="window.location.href='#'"">Découvrir</button>
+          </div>
         </div>
 
-        <div id="popup-island3" class="popup" style="display:none;">
-            Contenu pour l'île 3
-            <button onclick="hideIslandPopup('popup-island3')" class="cancel-button">Annuler</button>
+        <div id="popup-island3" class="popup" style="display: none">
+          <h2>Des solutions pour le Climat !</h2>
+          <p class="citation">
+            Explorez les solutions pour un futur durable ! Cliquez ici pour découvrir des actions à impact réel. 🌍
+          </p>
+          <div class="popup-buttons">
+            <button
+              onclick="hideIslandPopup('popup-island3')"
+              class="cancel-button"
+            >
+              Annuler
+            </button>
+            <button onclick="window.location.href='#'"">Découvrir</button>
+          </div>
         </div>
 
-        <div id="popup-island4" class="popup" style="display:none;">
-            Contenu pour l'île 4
-            <button onclick="hideIslandPopup('popup-island4')" class="cancel-button">Annuler</button>
+        <div id="popup-island4" class="popup" style="display: none">
+          <h2>Calculez Votre Impact !</h2>
+          <p class="citation">
+            Découvrez votre empreinte carbone et agissez pour un futur plus vert ! <br> 
+            Utilisez notre calculateur pour évaluer votre impact personnel et recevez des recommandations sur mesure pour réduire votre empreinte  carbone. Cliquez ici pour commencer votre parcours vers un mode de vie  plus durable ! 🌿
+          </p>
+          <div class="popup-buttons">
+            <button
+              onclick="hideIslandPopup('popup-island4')"
+              class="cancel-button"
+            >
+              Annuler
+            </button>
+            <button onclick="window.location.href='#'"">Découvrir</button>
+          </div>
         </div>
 
-        <div id="popup-island5" class="popup" style="display:none;">
-            Contenu pour l'île 5
-            <button onclick="hideIslandPopup('popup-island5')" class="cancel-button">Annuler</button>
+        <div id="popup-island5" class="popup" style="display: none">
+          <h2>Explorez des Solutions Durables Accessibles à Tous ! </h2>
+          <p class="citation">
+            Plongez dans le monde des alternatives écologiques sans vous ruiner ! <br> 
+            Découvrez des solutions abordables et socialement justes qui font la différence dans la lutte contre le changement climatique. 🌱
+          </p>
+          <div class="popup-buttons">
+            <button
+              onclick="hideIslandPopup('popup-island5')"
+              class="cancel-button"
+            >
+              Annuler
+            </button>
+            <button onclick="window.location.href='#'"">Découvrir</button>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <script src="node_modules/phaser/dist/phaser.min.js"></script>
-    <!-- <script src="index.js"></script> -->
-    <script src="index2.js"></script>
-    
-
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.70.0/phaser.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/sidebar.js"></script>
+  </body>
 </html>

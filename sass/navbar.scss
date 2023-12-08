@@ -1,0 +1,89 @@
+nav {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 22px;
+}
+
+/* Icône burger */
+.burger-icon {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  height: 100vh;
+  cursor: pointer;
+  z-index: 2;
+  transition: right 0.5s ease;
+  /* Ajoutez une transition à la propriété right */
+
+  &.active {
+    right: 250px;
+  }
+
+  span {
+    display: block;
+    background-color: white;
+    width: 35px;
+    height: 5px;
+    margin: 6px 0;
+    transition: transform 0.5s ease, opacity 0.5s ease-out;
+    /* Combinez les deux transitions ici */
+  }
+}
+
+
+/* Icône burger animation */
+.burger-icon.active {
+  span:nth-child(1) {
+    transform: rotate(-45deg) translate(-7px, 8px);
+  }
+
+  span:nth-child(2) {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  span:nth-child(3) {
+    transform: rotate(45deg) translate(-8px, -8px);
+  }
+}
+
+/* Sidenav menu */
+.sidenav {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  right: -250px;
+  padding-top: 60px;
+  transition: right 0.5s ease;
+
+  a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: #FFF;
+    display: block;
+    transition: 0.3s;
+
+    &:hover {
+      color: lightskyblue;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &.active {
+    right: 0;
+    backdrop-filter: blur(15px);
+  }
+}
