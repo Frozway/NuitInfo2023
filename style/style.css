@@ -76,7 +76,7 @@ nav {
   /* Ajoutez une transition à la propriété right */
 }
 .burger-icon.active {
-  right: 250px;
+  right: 350px;
 }
 .burger-icon span {
   display: block;
@@ -107,10 +107,10 @@ nav {
   justify-content: center;
   text-align: center;
   height: 100%;
-  width: 300px;
+  width: 400px;
   position: fixed;
   z-index: 1;
-  right: -250px;
+  right: -400px;
   padding-top: 60px;
   transition: right 0.5s ease;
 }
